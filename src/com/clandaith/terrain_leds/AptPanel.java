@@ -19,14 +19,9 @@ public class AptPanel {
 
 		gpio.setShutdownOptions(false, PinState.LOW, redApt1, redApt2, redApt3, redApt4);
 
-		BlinkingLED led1Thread = new BlinkingLED(redApt1);
-		BlinkingLED led2Thread = new BlinkingLED(redApt2);
-		BlinkingLED led3Thread = new BlinkingLED(redApt3);
-		BlinkingLED led4Thread = new BlinkingLED(redApt4);
-
-		led1Thread.start();
-		led2Thread.start();
-		led3Thread.start();
-		led4Thread.start();
+		new BlinkingLED(redApt1).start();
+		new BlinkingLED(redApt2).start();
+		new BlinkingLED(redApt3).start();
+		new BlinkingLED(redApt4).start();
 	}
 }

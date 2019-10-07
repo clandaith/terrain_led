@@ -15,7 +15,6 @@ public class ShadyFloodLight {
 
 		gpio.setShutdownOptions(false, PinState.LOW, led);
 
-		BlinkingLED blinkingLED = new BlinkingLED(led, -1l, 100l);
-		blinkingLED.start();
+		new BlinkingLED(led, -1l, 100l).start();
 	}
 }

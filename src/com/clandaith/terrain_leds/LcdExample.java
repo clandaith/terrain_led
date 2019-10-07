@@ -5,7 +5,14 @@ import java.util.Date;
 
 import com.pi4j.component.lcd.LCDTextAlignment;
 import com.pi4j.component.lcd.impl.GpioLcdDisplay;
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalInput;
+import com.pi4j.io.gpio.PinPullResistance;
+import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
+import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
+import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 public class LcdExample {
 
@@ -20,7 +27,7 @@ public class LcdExample {
 		System.out.println("<--Pi4J--> GPIO 4 bit LCD example program");
 
 		// create gpio controller
-		// final GpioController gpio = GpioFactory.getInstance();
+		final GpioController gpio = GpioFactory.getInstance();
 
 		// initialize LCD
 		final GpioLcdDisplay lcd = new GpioLcdDisplay(LCD_ROWS, // number of row supported by LCD
@@ -32,32 +39,24 @@ public class LcdExample {
 				RaspiPin.GPIO_02, // LCD data bit 3
 				RaspiPin.GPIO_03); // LCD data bit 4
 
-		// // provision gpio pins as input pins with its internal pull up resistor
-		// enabled
-		// final GpioPinDigitalInput myButtons[] = {
-		// gpio.provisionDigitalInputPin(RaspiPin.GPIO_13, "B1",
-		// PinPullResistance.PULL_UP),
-		// gpio.provisionDigitalInputPin(RaspiPin.GPIO_07, "B2",
-		// PinPullResistance.PULL_UP),
-		// gpio.provisionDigitalInputPin(RaspiPin.GPIO_04, "B3",
-		// PinPullResistance.PULL_UP),
-		// gpio.provisionDigitalInputPin(RaspiPin.GPIO_12, "B4",
-		// PinPullResistance.PULL_UP) };
-		//
-		// // create and register gpio pin listener
-		// gpio.addListener(new GpioPinListenerDigital() {
-		// @Override
-		// public void
-		// handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-		// if (event.getState() == PinState.LOW) {
-		// lcd.writeln(LCD_ROW_2, event.getPin().getName() + " PRESSED",
-		// LCDTextAlignment.ALIGN_CENTER);
-		// } else {
-		// lcd.writeln(LCD_ROW_2, event.getPin().getName() + " RELEASED",
-		// LCDTextAlignment.ALIGN_CENTER);
-		// }
-		// }
-		// }, myButtons);
+		// provision gpio pins as input pins with its internal pull up resistor enabled
+		final GpioPinDigitalInput myButtons[] = {
+				gpio.provisionDigitalInputPin(RaspiPin.GPIO_13, "B1", PinPullResistance.PULL_UP),
+				gpio.provisionDigitalInputPin(RaspiPin.GPIO_07, "B2", PinPullResistance.PULL_UP),
+				gpio.provisionDigitalInputPin(RaspiPin.GPIO_04, "B3", PinPullResistance.PULL_UP),
+				gpio.provisionDigitalInputPin(RaspiPin.GPIO_12, "B4", PinPullResistance.PULL_UP) };
+
+		// create and register gpio pin listener
+		gpio.addListener(new GpioPinListenerDigital() {
+			@Override
+			public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+				if (event.getState() == PinState.LOW) {
+					lcd.writeln(LCD_ROW_2, event.getPin().getName() + " PRESSED", LCDTextAlignment.ALIGN_CENTER);
+				} else {
+					lcd.writeln(LCD_ROW_2, event.getPin().getName() + " RELEASED", LCDTextAlignment.ALIGN_CENTER);
+				}
+			}
+		}, myButtons);
 
 		// clear LCD
 		lcd.clear();

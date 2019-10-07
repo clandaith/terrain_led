@@ -15,8 +15,6 @@ public class ShortBuildingSecurityLight {
 
 		gpio.setShutdownOptions(false, PinState.LOW, led);
 
-		BlinkingLED blinkingLED = new BlinkingLED(led, 1000l, 200l);
-		blinkingLED.start();
+		new BlinkingLED(led, 1000l, 200l).start();
 	}
-
 }
