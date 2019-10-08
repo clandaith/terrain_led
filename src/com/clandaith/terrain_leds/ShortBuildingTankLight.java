@@ -4,7 +4,6 @@ import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
-import com.pi4j.io.gpio.RaspiPin;
 
 public class ShortBuildingTankLight {
 	private static GpioPinDigitalOutput led = null;
@@ -13,7 +12,7 @@ public class ShortBuildingTankLight {
 		Thread.sleep(Commons.getRandomSecond());
 
 		GpioController gpio = GpioFactory.getInstance();
-		led = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_29, PinState.LOW);
+		led = gpio.provisionDigitalOutputPin(Commons.getPin(16), PinState.LOW);
 
 		gpio.setShutdownOptions(false, PinState.LOW, led);
 

@@ -9,4 +9,6 @@ kill `pgrep -f ShadySecurityDoor`
 kill `pgrep -f ShortBuildingFloodLight`
 kill `pgrep -f ShortBuildingSecurityLight`
 kill `pgrep -f ShortBuildingTankLight`
+kill `pgrep -f GoGoClub`
+kill `pgrep -f PoliceStation`
 
