@@ -15,8 +15,15 @@ public class SkyTower {
 
 		GpioController gpio = GpioFactory.getInstance();
 		led = gpio.provisionDigitalOutputPin(Commons.getPin(11), PinState.LOW);
+		GpioPinDigitalOutput yellow1 = gpio.provisionDigitalOutputPin(Commons.getPin(6), PinState.LOW);
+		GpioPinDigitalOutput yellow2 = gpio.provisionDigitalOutputPin(Commons.getPin(10), PinState.LOW);
 
-		gpio.setShutdownOptions(false, PinState.LOW, led);
+		gpio.setShutdownOptions(false, PinState.LOW, yellow1, yellow2, led);
+
+		new BlinkingLED(yellow1, 500l, 500l).start();
+		Thread.sleep(500l);
+		new BlinkingLED(yellow2, 500l, 500l).start();
+		Thread.sleep(Commons.getRandomSecond());
 
 		while (true) {
 			// K

@@ -17,8 +17,8 @@ public class GoGoClub {
 
 		gpio.setShutdownOptions(false, PinState.LOW, topDoor, bottomDoor, securityPanel);
 
-		new BlinkingLED(topDoor, 300l, 300l).start();
-		new BlinkingLED(bottomDoor, 300l, 300l).start();
-		new BlinkingLED(securityPanel, 100l, 100l).start();
+		new BlinkingLED(topDoor, -1l, 100l).start();
+		new BlinkingLED(bottomDoor, -1l, 100l).start();
+		new BlinkingLED(securityPanel, 1000l, 100l).start();
 	}
 }

@@ -1,5 +1,7 @@
 package com.clandaith.terrain_leds;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,4 +72,47 @@ public class Commons {
 		return pins.keySet().contains(pin) ? pins.get(pin) : null;
 	}
 
+	public static String padMiddle(String left, String right, int len) {
+		int diff = len - (left.length() + right.length());
+
+		return padRight(left, len - diff + 1) + right;
+	}
+
+	public static String padLeft(String s, int len) {
+		int i = s.length();
+		while (i < len) {
+			s = " " + s;
+			i++;
+		}
+		return s;
+	}
+
+	public static String padRight(String s, int len) {
+		int i = s.length();
+		while (i < len) {
+			s += " ";
+			i++;
+		}
+		return s;
+	}
+
+	public static String getTemp() {
+		String line = "";
+		try {
+			Process process;
+			process = Runtime.getRuntime().exec("bash -c /home/pi/java/temp.sh");
+
+			BufferedReader output = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String b;
+			while ((b = output.readLine()) != null) {
+				line = b + "º";
+			}
+
+			output.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return line;
+	}
 }

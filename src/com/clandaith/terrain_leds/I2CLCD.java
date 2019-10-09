@@ -168,7 +168,7 @@ public class I2CLCD {
 	}
 
 	// write a command to lcd
-	private void lcdWrite(byte cmd) {
+	private synchronized void lcdWrite(byte cmd) {
 		lcdWrite(cmd, (byte) 0);
 	}
 
@@ -231,7 +231,7 @@ public class I2CLCD {
 	}
 
 	// define precise positioning (addition from the forum)
-	public void displayStringPos(String string, int line, int pos) {
+	public synchronized void displayStringPos(String string, int line, int pos) {
 		byte posNew = 0;
 
 		if (line == 1) {

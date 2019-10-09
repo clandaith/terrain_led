@@ -11,15 +11,15 @@ public class PoliceStation {
 
 		GpioController gpio = GpioFactory.getInstance();
 
-		GpioPinDigitalOutput frontBlue = gpio.provisionDigitalOutputPin(Commons.getPin(0), PinState.LOW);
+		GpioPinDigitalOutput frontBlue = gpio.provisionDigitalOutputPin(Commons.getPin(2), PinState.LOW);
 		GpioPinDigitalOutput frontRed = gpio.provisionDigitalOutputPin(Commons.getPin(3), PinState.LOW);
 		GpioPinDigitalOutput topBlue = gpio.provisionDigitalOutputPin(Commons.getPin(5), PinState.LOW);
 		GpioPinDigitalOutput topRed = gpio.provisionDigitalOutputPin(Commons.getPin(4), PinState.LOW);
-		GpioPinDigitalOutput yellow = gpio.provisionDigitalOutputPin(Commons.getPin(2), PinState.LOW);
+		GpioPinDigitalOutput yellow = gpio.provisionDigitalOutputPin(Commons.getPin(0), PinState.LOW);
 
 		gpio.setShutdownOptions(false, PinState.LOW, frontBlue, frontRed, topBlue, topRed, yellow);
 
-		new BlinkingLED(yellow, 500l, 500l).start();
+		new BlinkingLED(yellow, 300l, 400l).start();
 		new BlinkingLED(frontBlue, 500l, 500l).start();
 
 		Thread.sleep(500l);
